@@ -35,7 +35,7 @@ public class TaskService {
     @Transactional
     public TaskReadDto createTask(TaskCreateDto createDto, String email){
         User user = userService.findByEmail(email);
-        userService.checkUserExistence(createDto.getPerformerId());
+        userService.findById(createDto.getPerformerId());
         Task task = taskMapper.toEntity(createDto);
         taskRepository.save(task);
         return taskMapper.toDto(task);
@@ -45,7 +45,7 @@ public class TaskService {
     public TaskReadDto updateTask(Long id, TaskCreateDto createDto){
         Task checkTask = checkTask(id);
 
-        User user = userService.getUserById(createDto.getPerformerId());
+        User user = userService.findById(createDto.getPerformerId());
 
         Task task = checkTask;
         task.setHeader(createDto.getHeader());

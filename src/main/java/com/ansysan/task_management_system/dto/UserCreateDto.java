@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserCreateDto {
     @NotBlank
-    private String name;
+    private String Username;
     @Email
     private String email;
     @NotBlank

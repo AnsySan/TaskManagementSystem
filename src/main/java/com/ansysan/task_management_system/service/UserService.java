@@ -31,15 +31,4 @@ public class UserService {
         user = userRepository.save(user);
         return userMapper.toDto(user);
     }
-
-    public User getUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new UserException("User not found"));
-    }
-
-    public void checkUserExistence(Long id) {
-        if (!userRepository.findById(id).isPresent()) {
-            throw new UserException("User with this email address already exists");
-        }
-    }
 }
