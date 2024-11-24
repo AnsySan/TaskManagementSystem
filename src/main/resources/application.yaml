@@ -1,1 +1,17 @@
-spring.application.name=Task Management System
+spring:
+  application:
+    name: TaskManagementSystem
+
+server:
+  port: 9000
+
+security:
+  basic:
+    enable: false
+
+  jwt:
+    uri: /auth/**
+    header: Authorization
+    prefix: Bearer
+    expiration: 86400
+    secret: JwtSecretKey
