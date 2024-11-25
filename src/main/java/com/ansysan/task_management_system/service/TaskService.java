@@ -10,6 +10,7 @@ import com.ansysan.task_management_system.exception.TaskException;
 import com.ansysan.task_management_system.mapper.TaskMapper;
 import com.ansysan.task_management_system.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,7 @@ import java.util.function.BiFunction;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class TaskService {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
@@ -38,6 +40,7 @@ public class TaskService {
         userService.findById(createDto.getPerformerId());
         Task task = taskMapper.toEntity(createDto);
         taskRepository.save(task);
+        log.debug("Task created with id " + createDto.getPerformerId());
         return taskMapper.toDto(task);
     }
 
@@ -55,6 +58,7 @@ public class TaskService {
         task.setPerformer(user);
         taskRepository.save(task);
 
+        log.debug("Task updated with id " + createDto.getPerformerId());
         return taskMapper.toDto(task);
     }
 
@@ -62,6 +66,7 @@ public class TaskService {
     public TaskReadDto deleteTask(Long id){
         Task task = checkTask(id);
         taskRepository.delete(task);
+        log.debug("Task deleted with id " + id);
         return taskMapper.toDto(task);
     }
 
@@ -71,19 +76,24 @@ public class TaskService {
 
         doesTaskExist(tasks);
 
+        log.debug("Tasks found");
+
         return tasks.map(taskMapper::toDto);
     }
 
     public TaskReadDto getTask(Long id){
         Task task = checkTask(id);
+        log.debug("Task found with id " + id);
         return taskMapper.toDto(task);
     }
 
     public Page<TaskReadDto> getTasksByAuthorId(int page, int size, Long authorId){
+        log.debug("Tasks found with author id " + authorId);
         return getTasksByCondition(authorId, page, size, taskRepository::findAllByAuthorId);
     }
 
     public Page<TaskReadDto> getTasksByPerformedId(int page, int size, Long performedId){
+        log.debug("Tasks found with performed id " + performedId);
         return getTasksByCondition(performedId, page, size, taskRepository::findAllByPerformerId);
     }
 

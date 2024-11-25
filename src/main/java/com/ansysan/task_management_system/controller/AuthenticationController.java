@@ -4,6 +4,8 @@ import com.ansysan.task_management_system.dto.JwtResponseDto;
 import com.ansysan.task_management_system.dto.UserCreateDto;
 import com.ansysan.task_management_system.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +27,14 @@ public class AuthenticationController {
 
     private final AuthenticationService service;
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     @Operation(
-            summary = "Регистрация пользователя",
-            description = "Позволяет зарегистрировать пользователя"
+            summary = "Registration user",
+            description = "Allows you to register a user"
     )
     @PostMapping(value = "/registration")
     public ResponseEntity<JwtResponseDto> register(
@@ -44,8 +51,8 @@ public class AuthenticationController {
     }
 
     @Operation(
-            summary = "Авторизация пользователя",
-            description = "Позволяет авторизовать пользователя"
+            summary = "Authentication user",
+            description = "Allows you to authentication a user"
     )
     @PostMapping(value = "/authentication")
     public ResponseEntity<JwtResponseDto> authenticate(

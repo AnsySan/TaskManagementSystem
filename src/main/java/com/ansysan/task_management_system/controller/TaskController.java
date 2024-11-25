@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,9 +20,10 @@ import org.springframework.web.bind.annotation.*;
 public class TaskController {
     private final TaskService taskService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(
-            summary = "Создание задачи",
-            description = "Позволяет создать новую задачу в системе"
+            summary = "Create a task",
+            description = "Allows you to create a new task in the system"
     )
     @PostMapping
     @SecurityRequirement(name = "JWT")
@@ -30,9 +32,10 @@ public class TaskController {
         return taskService.createTask(taskDto, email);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(
-            summary = "Редактирование задачи",
-            description = "Позволяет изменять существующую задачу по ее id"
+            summary = "Edit task",
+            description = "Allows you to edit an existing task by its id"
     )
     @PatchMapping("/{id}")
     @SecurityRequirement(name = "JWT")
@@ -43,9 +46,10 @@ public class TaskController {
        return taskService.updateTask(taskId, taskDto);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(
-            summary = "Удаление задачи",
-            description = "Позволяет удалять задачу по ее id"
+            summary = "Delete task",
+            description = "Allows you to delete a task by its id"
     )
     @DeleteMapping("/{id}")
     @SecurityRequirement(name = "JWT")
@@ -54,9 +58,10 @@ public class TaskController {
         return taskService.deleteTask(taskId);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(
-            summary = "Поиск всех задач",
-            description = "Позволяет найти все существующие задачи в системе"
+            summary = "Search all tasks",
+            description = "Allows you to find all existing tasks in the system"
     )
     @GetMapping
     @SecurityRequirement(name = "JWT")
@@ -66,9 +71,10 @@ public class TaskController {
         return taskService.getAllTasks(page, size);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(
-            summary = "Поиск задачи",
-            description = "Позволяет найти задачу по ее id"
+            summary = "Search task",
+            description = "Allows you to find a task by its id"
     )
     @GetMapping("/{id}")
     @SecurityRequirement(name = "JWT")
@@ -77,9 +83,10 @@ public class TaskController {
         return taskService.getTask(taskId);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(
-            summary = "Поиск задач автора",
-            description = "Позволяет найти все задачи, созданные автором по его id"
+            summary = "Search for author tasks",
+            description = "Allows you to find all tasks created by the author by his id"
     )
     @GetMapping("/author/{id}")
     @SecurityRequirement(name = "JWT")
@@ -90,9 +97,10 @@ public class TaskController {
         return taskService.getTasksByAuthorId(page, size, authorId);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(
-            summary = "Поиск задач исполнителя",
-            description = "Позволяет найти все задачи, назначенные на исполнителя по его id"
+            summary = "Search for tasks by performer",
+            description = "Allows you to find all tasks assigned to a performer by their id"
     )
     @GetMapping("/performer/{id}")
     @SecurityRequirement(name = "JWT")

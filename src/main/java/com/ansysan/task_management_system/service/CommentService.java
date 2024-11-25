@@ -8,6 +8,7 @@ import com.ansysan.task_management_system.exception.CommentException;
 import com.ansysan.task_management_system.mapper.CommentMapper;
 import com.ansysan.task_management_system.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import java.time.temporal.ChronoUnit;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class CommentService {
     private final CommentMapper commentMapper;
     private final CommentRepository commentRepository;
@@ -30,6 +32,7 @@ public class CommentService {
 
         comment = commentRepository.save(comment);
 
+        log.debug("comment created with id: " + comment.getId());
         return commentMapper.toDto(comment);
     }
 
@@ -37,12 +40,14 @@ public class CommentService {
         Comment comment = existsComment(commentId);
         comment.setUpdatedDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
         comment = commentRepository.save(comment);
+        log.debug("comment updated with id: " + commentId);
         return commentMapper.toDto(comment);
     }
 
     public CommentReadDto deleteComment(Long id){
         Comment comment = existsComment(id);
         commentRepository.delete(comment);
+        log.debug("comment deleted with ID: {}", id);
         return commentMapper.toDto(comment);
     }
 

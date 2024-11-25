@@ -8,6 +8,7 @@ import com.ansysan.task_management_system.entity.enums.Role;
 import com.ansysan.task_management_system.exception.UserException;
 import com.ansysan.task_management_system.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -39,6 +41,7 @@ public class AuthenticationService {
                         .build();
         userRepository.save(userDetails.getUser());
         String jwtToken = jwtService.generateToken((Authentication) userDetails);
+        log.debug("JWT Token registration: {}", jwtToken);
         return new JwtResponseDto(jwtToken);
     }
 
@@ -55,6 +58,7 @@ public class AuthenticationService {
         String jwtToken = jwtService.generateToken((Authentication) UserDetailsImpl.builder()
                 .user(user)
                 .build());
+        log.debug("JWT Token authentication: {}", jwtToken);
         return JwtResponseDto.builder()
                 .tokenType(jwtToken)
                 .build();

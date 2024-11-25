@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,9 +18,10 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
     private final CommentService commentService;
 
+    @PreAuthorize("hasRole('USER')")
     @Operation(
-            summary = "Создание нового комментария",
-            description = "Позволяет создать новый комментарий в системе"
+            summary = "Create a new comment",
+            description = "Allows you to create a new comment in the system"
     )
     @PostMapping("/comments")
     @SecurityRequirement(name = "JWT")
@@ -28,9 +30,10 @@ public class CommentController {
         return commentService.createComment(commentDto);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @Operation(
-            summary = "Изменяет комментарий",
-            description = "Позволяет изменять комментарий в системе"
+            summary = "Changes the comment",
+            description = "Allows you to change the comment in the system"
     )
     @PostMapping("/comments/{id}")
     @SecurityRequirement(name = "JWT")
@@ -39,9 +42,10 @@ public class CommentController {
         return commentService.updateComment(commentCreateDto,userId,commentId);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(
-            summary = "Удаление комментария",
-            description = "Позволяет удалять комментарий по его id"
+            summary = "Delete comment",
+            description = "Allows you to delete a comment by its id"
     )
     @DeleteMapping("/comments/{id}")
     @SecurityRequirement(name = "JWT")
