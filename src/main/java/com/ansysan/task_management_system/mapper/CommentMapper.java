@@ -10,7 +10,6 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CommentMapper {
 
-    @Mapping(target = "createdDate", expression = "java(LocalDateTime.now())")
     @Mapping(target = "task", source = "taskId")
     Comment toEntity(CommentCreateDto commentCreateDto);
     CommentReadDto toDto(Comment comment);

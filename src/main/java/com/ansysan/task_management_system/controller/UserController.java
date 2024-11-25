@@ -19,6 +19,15 @@ public class UserController {
 
     private final UserService userService;
 
+    /**
+     * Регистрация нового пользователя.
+     *
+     * Этот метод принимает данные для создания нового пользователя,
+     * валидирует их и вызывает сервис для регистрации пользователя.
+     *
+     * @param userDto данные для создания нового пользователя
+     * @return объект зарегистрированного пользователя
+     */
     @Operation(
             summary = "Register a new user",
             description = "Allows you to register a new user in the system"
@@ -29,6 +38,17 @@ public class UserController {
         return userService.createUser(userDto);
     }
 
+    /**
+     * Обновление информации о пользователе.
+     *
+     * Этот метод принимает идентификатор пользователя и данные для обновления,
+     * вызывает сервис для обновления пользователя и возвращает
+     * обновленный объект пользователя.
+     *
+     * @param userDto данные для обновления пользователя
+     * @param userId идентификатор пользователя, которого нужно обновить
+     * @return объект обновленного пользователя
+     */
     @Operation(summary = "Update user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User updated"),
@@ -42,6 +62,15 @@ public class UserController {
         return userService.updateUser(userDto, userId);
     }
 
+    /**
+     * Удаление пользователя по его идентификатору.
+     *
+     * Этот метод принимает идентификатор пользователя и вызывает
+     * сервис для его удаления.
+     *
+     * @param userId идентификатор пользователя, которого нужно удалить
+     * @return объект удаленного пользователя
+     */
     @Operation(summary = "Delete user by ID")
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/user/delete")

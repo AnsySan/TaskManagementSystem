@@ -28,9 +28,15 @@ public class AuthenticationController {
     private final AuthenticationService service;
 
     /**
+     * Регистрация нового пользователя.
      *
-     * @param request
-     * @return
+     * Этот метод принимает данные пользователя, валидирует их
+     * и вызывает сервис для регистрации. В случае успешной
+     * регистрации возвращается ответ с кодом 201 (Created)
+     * и URI созданного ресурса.
+     *
+     * @param request данные для создания пользователя
+     * @return ответ с информацией о JWT токене и статусом регистрации
      */
     @Operation(
             summary = "Registration user",
@@ -50,6 +56,17 @@ public class AuthenticationController {
 
     }
 
+    /**
+     * Аутентификация пользователя.
+     *
+     * Этот метод принимает учетные данные пользователя,
+     * валидирует их и вызывает сервис для аутентификации.
+     * В случае успешной аутентификации возвращается ответ
+     * с кодом 200 (OK) и информацией о JWT токене.
+     *
+     * @param request учетные данные пользователя для аутентификации
+     * @return ответ с информацией о JWT токене и статусом аутентификации
+     */
     @Operation(
             summary = "Authentication user",
             description = "Allows you to authentication a user"

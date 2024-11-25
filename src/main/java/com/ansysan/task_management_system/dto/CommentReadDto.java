@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 public class CommentReadDto {
 
-    private int id;
+    private Long id;
     private String text;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdDate;

@@ -10,8 +10,8 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TaskMapper {
 
-    @Mapping(target = "createdDate", expression = "java(LocalDateTime.now())")
-    @Mapping(target = "performer", source = "performedId")
+    @Mapping(target = "performer", source = "performerId")
     Task toEntity(TaskCreateDto taskCreateDto);
+
     TaskReadDto toDto(Task task);
 }

@@ -35,11 +35,6 @@ public class AdminController {
             description = "Update the user role by specifying its id. The response is a message about the successful changed a role",
             tags = "post"
     )
-    @ApiResponses({
-            @ApiResponse(responseCode = "200"),
-            @ApiResponse(responseCode = "403"),
-            @ApiResponse(responseCode = "404"),
-            @ApiResponse(responseCode = "500")})
     public UserReadDto setAdmin(@PathVariable("id") Long id) {
        return adminService.setRoleUser(id);
     }

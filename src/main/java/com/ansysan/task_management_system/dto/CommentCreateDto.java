@@ -18,5 +18,5 @@ public class CommentCreateDto {
 
     @NotNull
     @Positive
-    private Long taskId;
+    private TaskReadDto taskId;
 }

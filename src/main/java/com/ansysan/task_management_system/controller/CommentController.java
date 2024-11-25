@@ -18,6 +18,15 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
     private final CommentService commentService;
 
+    /**
+     * Создание нового комментария.
+     *
+     * Этот метод принимает данные для создания комментария,
+     * валидирует их и вызывает сервис для создания комментария.
+     *
+     * @param commentDto данные для создания комментария
+     * @return объект созданного комментария
+     */
     @PreAuthorize("hasRole('USER')")
     @Operation(
             summary = "Create a new comment",
@@ -30,6 +39,18 @@ public class CommentController {
         return commentService.createComment(commentDto);
     }
 
+    /**
+     * Изменение существующего комментария.
+     *
+     * Этот метод принимает данные для обновления комментария
+     * и идентификатор комментария, который необходимо изменить.
+     * Вызывает сервис для обновления комментария и возвращает
+     * обновленный объект комментария.
+     *
+     * @param commentCreateDto данные для обновления комментария
+     * @param commentId идентификатор комментария, который нужно изменить
+     * @return объект обновленного комментария
+     */
     @PreAuthorize("hasRole('USER')")
     @Operation(
             summary = "Changes the comment",
@@ -42,6 +63,14 @@ public class CommentController {
         return commentService.updateComment(commentCreateDto,userId,commentId);
     }
 
+    /**
+     * Удаление комментария по его идентификатору.
+     *
+     * Этот метод принимает идентификатор комментария и вызывает
+     * сервис для его удаления.
+     *
+     * @param id идентификатор комментария, который нужно удалить
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(
             summary = "Delete comment",

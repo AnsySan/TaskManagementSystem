@@ -1,15 +1,16 @@
 package com.ansysan.task_management_system.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class JwtResponseDto {
-    @NonNull
-    private String accessToken;
+//    private String accessToken;
+    @Builder.Default
     private String tokenType = "Bearer";
 }

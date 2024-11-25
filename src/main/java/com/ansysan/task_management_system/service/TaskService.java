@@ -37,7 +37,6 @@ public class TaskService {
     @Transactional
     public TaskReadDto createTask(TaskCreateDto createDto, String email){
         User user = userService.findByEmail(email);
-        userService.findById(createDto.getPerformerId());
         Task task = taskMapper.toEntity(createDto);
         taskRepository.save(task);
         log.debug("Task created with id " + createDto.getPerformerId());
@@ -48,18 +47,17 @@ public class TaskService {
     public TaskReadDto updateTask(Long id, TaskCreateDto createDto){
         Task checkTask = checkTask(id);
 
-        User user = userService.findById(createDto.getPerformerId());
+        User user = userService.findById(id);
 
-        Task task = checkTask;
-        task.setHeader(createDto.getHeader());
-        task.setDescription(createDto.getDescription());
-        task.setStatus(Status.valueOf(createDto.getStatus()));
-        task.setPriority(Priority.valueOf(createDto.getPriority()));
-        task.setPerformer(user);
-        taskRepository.save(task);
+        checkTask.setHeader(createDto.getHeader());
+        checkTask.setDescription(createDto.getDescription());
+        checkTask.setStatus(Status.valueOf(createDto.getStatus()));
+        checkTask.setPriority(Priority.valueOf(createDto.getPriority()));
+        checkTask.setPerformer(user);
+        taskRepository.save(checkTask);
 
         log.debug("Task updated with id " + createDto.getPerformerId());
-        return taskMapper.toDto(task);
+        return taskMapper.toDto(checkTask);
     }
 
     @Transactional

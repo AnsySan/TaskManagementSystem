@@ -24,9 +24,10 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final TaskService taskService;
 
+
     @Transactional
     public CommentReadDto createComment(CommentCreateDto commentCreateDto){
-        Task task = taskService.checkTask(commentCreateDto.getTaskId());
+        Task task = taskService.checkTask(commentCreateDto.getTaskId().getId());
 
         Comment comment = commentMapper.toEntity(commentCreateDto);
 

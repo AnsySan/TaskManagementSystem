@@ -20,8 +20,20 @@ import org.springframework.web.bind.annotation.*;
 public class TaskController {
     private final TaskService taskService;
 
+    /**
+    * Создание новой задачи.
+     *
+     * Этот метод принимает данные для создания задачи и email,
+     * валидирует их и вызывает сервис для создания задачи.
+     *
+    * @param taskDto данные для создания задачи
+    * @param email email автора задачи
+    * @return объект созданной задачи
+    */
+
+
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(
+        @Operation(
             summary = "Create a task",
             description = "Allows you to create a new task in the system"
     )
@@ -32,6 +44,17 @@ public class TaskController {
         return taskService.createTask(taskDto, email);
     }
 
+    /**
+     * Изменение существующей задачи.
+     *
+     * Этот метод принимает идентификатор задачи и данные для обновления,
+     * вызывает сервис для обновления задачи и возвращает
+     * обновленный объект задачи.
+     *
+     * @param taskId идентификатор задачи, которую нужно изменить
+     * @param taskDto данные для обновления задачи
+     * @return объект обновленной задачи
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(
             summary = "Edit task",
@@ -46,6 +69,15 @@ public class TaskController {
        return taskService.updateTask(taskId, taskDto);
     }
 
+    /**
+     * Удаление задачи по ее идентификатору.
+     *
+     * Этот метод принимает идентификатор задачи и вызывает
+     * сервис для ее удаления. В случае успешного удаления
+     * возвращается код 204 (No Content).
+     *
+     * @param taskId идентификатор задачи, которую нужно удалить
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(
             summary = "Delete task",
@@ -58,6 +90,15 @@ public class TaskController {
         return taskService.deleteTask(taskId);
     }
 
+    /**
+     * Получение всех существующих задач.
+     *
+     * Этот метод возвращает все задачи с учетом пагинации.
+     *
+     * @param page номер страницы (смещение)
+     * @param size размер страницы (количество задач на странице)
+     * @return страница объектов задач
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(
             summary = "Search all tasks",
@@ -71,6 +112,14 @@ public class TaskController {
         return taskService.getAllTasks(page, size);
     }
 
+    /**
+     * Получение задачи по ее идентификатору.
+     *
+     * Этот метод возвращает задачу с указанным идентификатором.
+     *
+     * @param taskId идентификатор задачи, которую нужно получить
+     * @return объект найденной задачи
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(
             summary = "Search task",
@@ -83,6 +132,17 @@ public class TaskController {
         return taskService.getTask(taskId);
     }
 
+    /**
+     * Получение всех задач, созданных автором по его идентификатору.
+     *
+     * Этот метод возвращает все задачи, созданные указанным автором,
+     * с учетом пагинации.
+     *
+     * @param authorId идентификатор автора задач
+     * @param page номер страницы (смещение)
+     * @param size размер страницы (количество задач на странице)
+     * @return страница объектов задач, созданных автором
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(
             summary = "Search for author tasks",
@@ -97,6 +157,17 @@ public class TaskController {
         return taskService.getTasksByAuthorId(page, size, authorId);
     }
 
+    /**
+     * Получение всех задач, назначенных исполнителю по его идентификатору.
+     *
+     * Этот метод возвращает все задачи, назначенные указанному исполнителю,
+     * с учетом пагинации.
+     *
+     * @param performerId идентификатор исполнителя задач
+     * @param page номер страницы (смещение)
+     * @param size размер страницы (количество задач на странице)
+     * @return страница объектов задач, назначенных исполнителю
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(
             summary = "Search for tasks by performer",

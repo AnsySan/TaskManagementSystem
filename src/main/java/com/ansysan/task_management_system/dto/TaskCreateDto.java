@@ -29,5 +29,5 @@ public class TaskCreateDto {
 
     @NotNull
     @Positive
-    private Long performerId;
+    private UserReadDto performerId;
 }
