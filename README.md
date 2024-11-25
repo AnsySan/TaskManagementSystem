@@ -37,5 +37,6 @@
 ## Запуск
 Для запуска проекта проделайте следующие шаги:
 
-1.Хапустите файл docker-compose.yaml для поднятия окружения разработки.
-2.Запустите класс TaskManagementSystemApplication.
+1)Хапустите файл docker-compose.yaml для поднятия окружения разработки.
+
+2)Запустите класс TaskManagementSystemApplication.
