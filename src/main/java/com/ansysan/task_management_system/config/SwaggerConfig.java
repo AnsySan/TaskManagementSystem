@@ -21,6 +21,4 @@ public class SwaggerConfig {
                                 .email("epaskevic4@gmail.com")
                                 .url("https://github.com/AnsySan")));
     }
-
-
 }
